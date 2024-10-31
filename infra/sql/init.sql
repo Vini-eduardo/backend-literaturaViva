@@ -24,8 +24,6 @@ FOR EACH ROW EXECUTE FUNCTION gerar_ra();
 
 
 
-
-
 CREATE TABLE Livro (
     id_livro SERIAL PRIMARY KEY,
     titulo VARCHAR (200) NOT NULL,

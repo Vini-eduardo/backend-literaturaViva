@@ -1,7 +1,12 @@
+import { DatabaseModel } from "./DataBaseModel";
+
+// armazenei o pool de conexões
+const database = new DatabaseModel().pool;
+
 /**
  * Classe que representa um Empréstimo.
  */
-export class Empréstimo {
+export class Emprestimo {
 
     /* Atributos */
     /* Identificador do Empréstimo */
@@ -30,14 +35,12 @@ export class Empréstimo {
    */
 
     constructor(
-        idEmprestimo: number,
         idAluno: number,
         idLivro: number,
         dataEmprestimo: Date,
         dataDevolucao: Date,
         statusEmprestimo: string
     ) {
-        this.idEmprestimo = idEmprestimo;
         this.idAluno = idAluno;
         this.idLivro = idLivro;
         this.dataEmprestimo = dataEmprestimo;
@@ -47,27 +50,26 @@ export class Empréstimo {
 
 
 
-
     /* Métodos get e set */
     /**
-     * Recupera o identificador do Empréstimo
-     * @returns o identificador do Empréstimo
+     * Recupera o identificador do Emprestimo
+     * @returns o identificador do Emprestimo
      */
     public getIdEmprestimo(): number {
         return this.idEmprestimo;
     }
 
     /**
-     * Atribui um valor ao identificador do Empréstimo
-     * @param idEmprestimo identificador do Empréstimo
+     * Atribui um valor ao identificador do Emprestimo
+     * @param idEmprestimo identificador do Emprestimo
      */
     public setIdEmprestimo(idEmprestimo: number): void {
         this.idEmprestimo = idEmprestimo;
     }
 
 
-    /* Métodos get e set */
-    /**
+
+    /*
      * Recupera o identificador do Aluno
      * @returns o identificador do Aluno
      */
@@ -84,7 +86,6 @@ export class Empréstimo {
     }
 
 
-    /* Métodos get e set */
     /**
      * Recupera o identificador do livro
      * @returns o identificador do livro
@@ -120,16 +121,16 @@ export class Empréstimo {
 
 
     /**
-     * Retorna a data de Empréstimo.
-     * @returns A data de Empréstimo.
+     * Retorna a data de Devolução
+     * @returns A data de Devolução.
      */
     public getDataDevolucao(): Date {
         return this.dataDevolucao;
     }
 
     /**
-     Define a data de Empréstimo.
-    * @param dataDevolucao - Data de Empréstimo.
+     Define a data de Devolução.
+    * @param dataDevolucao - Data de Devolução.
     */
     public setDataDevolucao(dataDevolucao: Date): void {
         this.dataDevolucao = dataDevolucao;
@@ -138,7 +139,7 @@ export class Empréstimo {
 
     /**
     * Retorna o status do empréstimo.
-    * @returns {string} O status do livro empréstimo.
+    * @returns {string} O status do empréstimo.
     */
     public getStatusEmprestimo(): string {
         return this.statusEmprestimo;
@@ -150,5 +151,43 @@ export class Empréstimo {
     */
     public setStatusEmprestimo(statusEmprestimo: string): void {
         this.statusEmprestimo = statusEmprestimo;
+    }
+
+
+    /**
+     * Busca e retorna uma lista de emprestimos do banco de dados.
+     * @returns Um array de objetos do tipo `Emprestimos` em caso de sucesso ou `null` se ocorrer um erro durante a consulta.
+     * 
+     * - A função realiza uma consulta SQL para obter todos os registros da tabela "emprestimos".
+     * - Os dados retornados são utilizados para instanciar objetos da classe `emprestimos`.
+     * - Cada emprestimo instanciado é adicionado a uma lista que será retornada ao final da execução.
+     * - Caso ocorra uma falha na consulta ao banco, a função captura o erro, exibe uma mensagem no console e retorna `null`.
+     */
+    static async listagemEmprestimos(): Promise<Array<Emprestimo> | null> {
+        const listaDeEmprestimos: Array<Emprestimo> = [];
+
+        try {
+            const querySelectEmprestimos = `SELECT * FROM emprestimo;`;
+            const respostaBD = await database.query(querySelectEmprestimos);
+
+            respostaBD.rows.forEach((linha: any) => {
+                const novoEmprestimo= new Emprestimo(
+                    linha.idAluno,
+                    linha.id_livro,
+                    linha.dataEmprestimo,
+                    linha.dataDevolucao,
+                    linha.statusEmprestimo
+                );
+
+                novoEmprestimo.setIdEmprestimo(linha.id_emprestimo);
+
+                listaDeEmprestimos.push(novoEmprestimo);
+            });
+
+            return listaDeEmprestimos;
+        } catch (error) {
+            console.log('Erro ao buscar lista de empréstimos');
+            return null;
+        }
     }
 }
