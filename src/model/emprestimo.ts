@@ -174,9 +174,9 @@ export class Emprestimo {
                 const novoEmprestimo= new Emprestimo(
                     linha.idAluno,
                     linha.id_livro,
-                    linha.dataEmprestimo,
-                    linha.dataDevolucao,
-                    linha.statusEmprestimo
+                    linha.data_emprestimo,
+                    linha.data_devolucao,
+                    linha.status_emprestimo
                 );
 
                 novoEmprestimo.setIdEmprestimo(linha.id_emprestimo);

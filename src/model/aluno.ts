@@ -251,7 +251,7 @@ export class Aluno {
                 const novoAluno = new Aluno(
                     linha.nome,
                     linha.sobrenome,
-                    linha.dataNascimento,
+                    linha.data_nascimento,
                     linha.endereco,
                     linha.email,
                     linha.celular
@@ -264,7 +264,7 @@ export class Aluno {
                 listaDeAlunos.push(novoAluno);
             });
 
-            // retorna a lista de carros
+            // retorna a lista de alunos
             return listaDeAlunos;
         } catch (error) {
             console.log('Erro ao buscar lista de alunos');
