@@ -5,7 +5,7 @@ interface AlunoDTO {
     ra: number,
     nome: string,
     sobrenome: string,
-    dataNascimento: Date,
+    dataNascimento: string,
     endereco: string,
     email: string,
     celular: string

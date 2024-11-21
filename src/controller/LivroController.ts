@@ -6,7 +6,7 @@ interface LivroDTO {
     autor: string,
     editora: string,
     anoPublicacao: string,
-    isbn: string,
+    isbn: number,
     quantTotal: number,
     quantDisponivel: number,
     valorAquisicao: number,

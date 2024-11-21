@@ -18,7 +18,7 @@ export class Aluno {
     /* sobrenome do carro */
     private sobrenome: string;
     /* data de nascimento do aluno */
-    private dataNascimento: Date;
+    private dataNascimento: string;
     /* endereco do aluno*/
     private endereco: string;
     /* email do aluno*/
@@ -42,7 +42,7 @@ export class Aluno {
     constructor(
         nome: string,
         sobrenome: string,
-        dataNascimento: Date,
+        dataNascimento: string,
         endereco: string,
         email: string,
         celular: string
@@ -145,9 +145,9 @@ export class Aluno {
     /**
      * Retorna a data de nascimento do aluno.
      *
-     * @returns {Date} A data de nascimento do aluno.
+     * @returns {string} A data de nascimento do aluno.
      */
-    public getDataNascimento(): Date {
+    public getDataNascimento(): string {
         return this.dataNascimento;
     }
 
@@ -156,7 +156,7 @@ export class Aluno {
      * 
      * @param dataNascimento - O data de nascimento a ser definida para o aluno.
      */
-    public setDataNascimento(dataNascimento: Date): void {
+    public setDataNascimento(dataNascimento: string): void {
         this.dataNascimento = dataNascimento;
     }
 

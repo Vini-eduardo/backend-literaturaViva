@@ -20,7 +20,7 @@ export class Livro {
     /* Ano de Publicação do Livro */
     private anoPublicacao: string;
     /* ISBN do livro*/
-    private isbn: string;
+    private isbn: number;
     /* Quantidade Total do Livro*/
     private quantTotal: number;
     /* Quantidade disponível do Livro*/
@@ -50,7 +50,7 @@ export class Livro {
         autor: string,
         editora: string,
         anoPublicacao: string,
-        isbn: string,
+        isbn: number,
         quantTotal: number,
         quantDisponivel: number,
         valorAquisicao: number,
@@ -159,9 +159,9 @@ export class Livro {
     /**
        * Retorna o isbn do livro.
        *
-       * @returns {string} O isbn do livro.
+       * @returns {number} O isbn do livro.
        */
-    public getIsbn(): string {
+    public getIsbn(): number {
         return this.isbn;
     }
 
@@ -170,7 +170,7 @@ export class Livro {
      * 
      * @param isbn - isbn do livro a ser definido.
      */
-    public setIsbn(isbn: string): void {
+    public setIsbn(isbn: number): void {
         this.isbn = isbn;
     }
 
@@ -282,7 +282,7 @@ export class Livro {
                     linha.quant_total,
                     linha.quant_disponivel,
                     linha.valor_aquisicao,
-                    linha.status_Livro_Emprestado
+                    linha.status_livro_Emprestado
                 );
 
                 // atribui o ID objeto
@@ -325,7 +325,7 @@ export class Livro {
                                         '${livro.getAutor()}', 
                                         '${livro.getEditora()}', 
                                         '${livro.getAnoPublicacao()}',
-                                        '${livro.getIsbn()}',
+                                        ${livro.getIsbn()},
                                         ${livro.getQuantTotal()},
                                         ${livro.getQuantDisponivel()},
                                         ${livro.getValorAquisicao()},
