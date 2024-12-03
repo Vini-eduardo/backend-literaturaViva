@@ -17,13 +17,14 @@ router.get("/", (req: Request, res: Response) => {
 // Rota para listar os livros
 router.get("/lista/livros", LivroController.todos);
 router.post("/novo/livro", LivroController.novo);
-
+router.delete("/delete/livro/:idLivro", LivroController.remover);
 /* 
 * ROTAS PARA ALUNOS
 */ 
 // Rota para listar os alunos
 router.get("/lista/alunos", AlunoController.todos);
 router.post("/novo/aluno", AlunoController.novo);
+router.delete("/delete/aluno/:idAluno", AlunoController.remover);
 /* 
 * ROTAS PARA EMPRESTIMOS
 */ 

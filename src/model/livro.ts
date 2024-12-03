@@ -8,26 +8,25 @@ const database = new DatabaseModel().pool;
  */
 export class Livro {
 
-    /* Atributos */
-    /* Identificador do Livro */
+
     private idLivro: number = 0;
-    /* Título do Livro */
+
     private titulo: string;
-    /* Autor d Livro */
+ 
     private autor: string;
-    /* Editora do Livro*/
+
     private editora: string;
-    /* Ano de Publicação do Livro */
+
     private anoPublicacao: string;
-    /* ISBN do livro*/
+ 
     private isbn: number;
-    /* Quantidade Total do Livro*/
+ 
     private quantTotal: number;
-    /* Quantidade disponível do Livro*/
+
     private quantDisponivel: number;
-    /* Valor de Aquisição do Livro*/
+
     private valorAquisicao: number;
-    /* Status do Livro Emprestado */
+ 
     private statusLivroEmprestado: string;
 
 
@@ -81,7 +80,7 @@ export class Livro {
      * @param idLivro novo identificador do livro
      */
     public setIdLivro(idLivro: number): void {
-        this.idLivro = this.idLivro;
+        this.idLivro = idLivro;
     }
 
     /**
@@ -356,4 +355,32 @@ export class Livro {
             return false;
         }
     }
+    static async removerLivro(idLivro: number): Promise<boolean> {
+        try {
+            // query para fazer delete de um aluno no banco de dados
+            const queryDeleteLivro = `DELETE FROM livro WHERE id_livro = ${idLivro}`;
+
+            // executa a query no banco e armazena a resposta
+            const respostaBD = await database.query(queryDeleteLivro);
+
+            // verifica se a quantidade de linhas modificadas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                console.log(`Livro removido com sucesso! ID do livro: ${idLivro}`);
+                // true significa que a removação foi bem sucedida
+                return true;
+            }
+            // false significa que a remoção NÃO foi bem sucedida.
+            return false;
+
+            // tratando o erro
+        } catch (error) {
+            // imprime outra mensagem junto com o erro
+            console.log('Erro ao remover o livro. Verifique os logs para mais detalhes.');
+            // imprime o erro no console
+            console.log(error);
+            // retorno um valor falso
+            return false;
+        }
+    }
 }
+

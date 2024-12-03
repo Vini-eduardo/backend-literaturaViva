@@ -69,7 +69,7 @@ export class Aluno {
      * @param idAluno novo identificador do aluno
      */
     public setIdAluno(idAluno: number): void {
-        this.idAluno = this.idAluno;
+        this.idAluno = idAluno;
     }
 
 
@@ -87,7 +87,7 @@ export class Aluno {
      * @param ra novo RA do aluno
      */
     public setRaAluno(raAluno: number): void {
-        this.ra = this.ra;
+        this.ra = raAluno;
     }
 
 
@@ -319,6 +319,61 @@ export class Aluno {
         } catch (error) {
             // imprime outra mensagem junto com o erro
             console.log('Erro ao cadastrar o aluno. Verifique os logs para mais detalhes.');
+            // imprime o erro no console
+            console.log(error);
+            // retorno um valor falso
+            return false;
+        }
+    }
+
+    static async removerAluno(idAluno: number): Promise<boolean> {
+        try {
+            const queryDeleteAluno = `DELETE FROM aluno WHERE id_aluno = ${idAluno}`;
+            const respostaBD = await database.query(queryDeleteAluno);
+
+            if (respostaBD.rowCount != 0) {
+                console.log(`Aluno removido com sucesso! ID do aluno: ${idAluno}`);
+
+                return true;
+            }
+             return false;
+
+
+        } catch (error) {
+
+            console.log('Erro ao remover o aluno. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return false;
+        }
+    }
+    static async atualizarAluno(aluno: Aluno): Promise<boolean> {
+        try {
+            // query para fazer update de um aluno no banco de dados
+            const queryUpdateAluno = `UPDATE aluno
+                                    SET ra = '${aluno.getRa()}', 
+                                        nome = '${aluno.getNome()}', 
+                                        data_nascimento = '${aluno.getDataNascimento()}', 
+                                        endereco = '${aluno.getEndereco()}',
+                                        email = '${aluno.getEmail()}',
+                                        celular = '${aluno.getCelular()}'
+                                    WHERE id_aluno = ${aluno.getIdAluno()};`;
+
+            // executa a query no banco e armazena a resposta
+            const respostaBD = await database.query(queryUpdateAluno);
+
+            // verifica se a quantidade de linhas modificadas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                console.log(`Aluno atualizado com sucesso! ID do aluno: ${aluno.getIdAluno()}`);
+                // true significa que a atualização foi bem sucedida
+                return true;
+            }
+            // false significa que a atualização NÃO foi bem sucedida.
+            return false;
+
+            // tratando o erro
+        } catch (error) {
+            // imprime outra mensagem junto com o erro
+            console.log('Erro ao atualizar o aluno. Verifique os logs para mais detalhes.');
             // imprime o erro no console
             console.log(error);
             // retorno um valor falso

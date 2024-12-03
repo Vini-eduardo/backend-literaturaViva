@@ -89,4 +89,66 @@ export class AlunoController extends Aluno {
             return res.status(400).json({ mensagem: "Não foi possível cadastrar o Aluno. Entre em contato com o administrador do sistema." });
         }
     }
+    static async remover(req: Request, res: Response): Promise<any> {
+        try {
+            // recuperando o id do carro que será removido
+            const idAluno = parseInt(req.params.idAluno as string);
+
+            // chamando a função de remoção de carro
+            const respostaModelo = await Aluno.removerAluno(idAluno);
+
+            // verificando a resposta da função
+            if (respostaModelo) {
+                // retornar uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "Aluno removido com sucesso!" });
+            } else {
+                // retorno uma mensagem de erro
+                return res.status(400).json({ mensagem: "Erro ao remover o aluno. Entre em contato com o administrador do sistema." })
+            }
+        } catch (error) {
+            // lança uma mensagem de erro no console
+            console.log(`Erro ao remover um aluno. ${error}`);
+
+            // retorna uma mensagem de erro há quem chamou a mensagem
+            return res.status(400).json({ mensagem: "Não foi possível remover o aluno. Entre em contato com o administrador do sistema." });
+        }
+    }
+    static async atualizar(req: Request, res: Response): Promise<any> {
+        try {
+            // recuperando o id do Aluno que será atualizado
+            const idAluno = parseInt(req.params.idAluno as string);
+
+            // recuperando as informações do Aluno que serão atualizadas
+            const alunoRecebido: AlunoDTO = req.body;
+
+            // instanciando um objeto do tipo Aluno com as informações recebidas
+            const alunoAtualizado = new Aluno(alunoRecebido.nome,
+                alunoRecebido.sobrenome,
+                alunoRecebido.dataNascimento,
+                alunoRecebido.endereco,
+                alunoRecebido.email,
+                alunoRecebido.celular);
+
+            // setando o id do Aluno que será atualizado
+            alunoAtualizado.setIdAluno(idAluno);
+
+            // chamando a função de atualização de Aluno
+            const resposta = await Aluno.atualizarAluno(alunoAtualizado);
+
+            // verificando a resposta da função
+            if (resposta) {
+                // retornar uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "Aluno atualizado com sucesso!" });
+            } else {
+                // retorno uma mensagem de erro
+                return res.status(400).json({ mensagem: "Erro ao atualizar o Aluno. Entre em contato com o administrador do sistema." })
+            }
+        } catch (error) {
+            // lança uma mensagem de erro no console
+            console.log(`Erro ao atualizar um Aluno. ${error}`);
+
+            // retorna uma mensagem de erro há quem chamou a mensagem
+            return res.status(400).json({ mensagem: "Não foi possível atualizar o Aluno. Entre em contato com o administrador do sistema." });
+        }
+    }
 }
