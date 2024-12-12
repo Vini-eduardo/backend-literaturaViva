@@ -63,24 +63,24 @@ export class AlunoController extends Aluno {
             const AlunoRecebido: AlunoDTO = req.body;
 
             // instanciando um objeto do tipo aluno com as informações recebidas
-            const novoAluno = new Aluno(AlunoRecebido.nome, 
-                                        AlunoRecebido.sobrenome,
-                                        AlunoRecebido.dataNascimento,
-                                        AlunoRecebido.endereco,
-                                        AlunoRecebido.email,
-                                        AlunoRecebido.celular);
+            const novoAluno = new Aluno(AlunoRecebido.nome,
+                AlunoRecebido.sobrenome,
+                AlunoRecebido.dataNascimento,
+                AlunoRecebido.endereco,
+                AlunoRecebido.email,
+                AlunoRecebido.celular);
 
             // Chama a função de cadastro passando o objeto como parâmetro
             const repostaClasse = await Aluno.cadastroAluno(novoAluno);
 
             // verifica a resposta da função
-            if(repostaClasse) {
+            if (repostaClasse) {
                 // retornar uma mensagem de sucesso
                 return res.status(200).json({ mensagem: "Aluno cadastrado com sucesso!" });
             } else {
                 // retorno uma mensagem de erro
-                return res.status(400).json({ mensagem: "Erro ao cadastra o Aluno. Entre em contato com o administrador do sistema."})
-            } 
+                return res.status(400).json({ mensagem: "Erro ao cadastra o Aluno. Entre em contato com o administrador do sistema." })
+            }
         } catch (error) {
             // lança uma mensagem de erro no console
             console.log(`Erro ao cadastrar um aluno. ${error}`);

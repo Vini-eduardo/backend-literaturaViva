@@ -65,27 +65,27 @@ export class LivroController extends Livro {
             const livroRecebido: LivroDTO = req.body;
 
             // instanciando um objeto do tipo livro com as informações recebidas
-            const novoLivro = new Livro(livroRecebido.titulo, 
-                                        livroRecebido.autor, 
-                                        livroRecebido.editora,
-                                        livroRecebido.anoPublicacao,
-                                        livroRecebido.isbn,
-                                        livroRecebido.quantTotal,
-                                        livroRecebido.quantDisponivel,
-                                        livroRecebido.valorAquisicao,
-                                        livroRecebido.statusLivroEmprestado);
+            const novoLivro = new Livro(livroRecebido.titulo,
+                livroRecebido.autor,
+                livroRecebido.editora,
+                livroRecebido.anoPublicacao,
+                livroRecebido.isbn,
+                livroRecebido.quantTotal,
+                livroRecebido.quantDisponivel,
+                livroRecebido.valorAquisicao,
+                livroRecebido.statusLivroEmprestado);
 
             // Chama a função de cadastro passando o objeto como parâmetro
             const repostaClasse = await Livro.cadastroLivro(novoLivro);
 
             // verifica a resposta da função
-            if(repostaClasse) {
+            if (repostaClasse) {
                 // retornar uma mensagem de sucesso
                 return res.status(200).json({ mensagem: "Livro cadastrado com sucesso!" });
             } else {
                 // retorno uma mensagem de erro
-                return res.status(400).json({ mensagem: "Erro ao cadastrar o Livro. Entre em contato com o administrador do sistema."})
-            } 
+                return res.status(400).json({ mensagem: "Erro ao cadastrar o Livro. Entre em contato com o administrador do sistema." })
+            }
         } catch (error) {
             // lança uma mensagem de erro no console
             console.log(`Erro ao cadastrar um livro. ${error}`);
@@ -115,7 +115,7 @@ export class LivroController extends Livro {
             console.log(`Erro ao remover um aluno. ${error}`);
 
             // retorna uma mensagem de erro há quem chamou a mensagem
-            return res.status(400).json({ mensagem: "Não foi possível remover o livro. Entre em contato com o administrador do sistema."});
+            return res.status(400).json({ mensagem: "Não foi possível remover o livro. Entre em contato com o administrador do sistema." });
         }
     }
 }

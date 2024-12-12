@@ -26,9 +26,6 @@ export class Aluno {
     /* celular do aluno*/
     private celular: string;
 
-
-
-
     /**
      * Construtor da classe Aluno
      * 
@@ -72,8 +69,6 @@ export class Aluno {
         this.idAluno = idAluno;
     }
 
-
-
     /**
          * Recupera o RA do aluno
          * @returns o RA do aluno
@@ -89,13 +84,6 @@ export class Aluno {
     public setRaAluno(raAluno: number): void {
         this.ra = raAluno;
     }
-
-
-
-
-
-
-
 
     /**
      * Retorna o nome do Aluno.
@@ -115,11 +103,6 @@ export class Aluno {
         this.nome = nome;
     }
 
-
-
-
-
-
     /**
      * Retorna o sobrenome do aluno.
      *
@@ -137,10 +120,6 @@ export class Aluno {
     public setSobrenome(sobrenome: string): void {
         this.sobrenome = sobrenome;
     }
-
-
-
-
 
     /**
      * Retorna a data de nascimento do aluno.
@@ -160,10 +139,6 @@ export class Aluno {
         this.dataNascimento = dataNascimento;
     }
 
-
-
-
-
     /**
      * Retorna o endereço do aluno.
      *
@@ -181,10 +156,6 @@ export class Aluno {
     public setEndereco(endereco: string): void {
         this.endereco = endereco;
     }
-
-
-
-
 
     /**
  * Retorna o email do aluno.
@@ -204,8 +175,6 @@ export class Aluno {
         this.email = email;
     }
 
-
-
     /**
  * Retorna o celular do aluno.
  *
@@ -224,7 +193,7 @@ export class Aluno {
         this.celular = celular;
     }
 
-    
+
     /**
      * Busca e retorna uma lista de carros do banco de dados.
      * @returns Um array de objetos do tipo `Aluno` em caso de sucesso ou `null` se ocorrer um erro durante a consulta.
@@ -273,7 +242,7 @@ export class Aluno {
     }
 
     /**
-     * Realiza o cadastro de um carro no banco de dados.
+     * Realiza o cadastro de um aluno no banco de dados.
      * 
      * Esta função recebe um objeto do tipo `Aluno` e insere seus dados (nome, sobrenome, dataNascimento, endereço, email e telefone)
      * na tabela `Aluno` do banco de dados. O método retorna um valor booleano indicando se o cadastro 
@@ -326,23 +295,41 @@ export class Aluno {
         }
     }
 
+    /**
+     * Realiza a remoção de um aluno no banco de dados.
+     * 
+     * Esta função recebe um objeto do tipo `Aluno` e remove seus dados na tabela `Aluno` do banco de dados.
+     * O método retorna um valor booleano indicando se a remoção foi realizada com sucesso.
+     * 
+     * @param {Aluno} aluno - Objeto contendo os dados do aluno que será removido (provavelmente o ID). O objeto `Aluno`.
+     *                       
+     * @returns {Promise<boolean>} - Retorna `true` se o aluno foi removido com sucesso e `false` caso contrário.
+     *                               Em caso de erro durante o processo, a função trata o erro e retorna `false`.
+     * 
+     * @throws {Error} - Se ocorrer algum erro durante a execução da remoção, uma mensagem de erro é exibida
+     *                   no console junto com os detalhes do erro.
+     */
     static async removerAluno(idAluno: number): Promise<boolean> {
+        // query para fazer delete de um aluno no banco de dados
         try {
             const queryDeleteAluno = `DELETE FROM aluno WHERE id_aluno = ${idAluno}`;
+            // executa a query no banco e armazena a resposta
             const respostaBD = await database.query(queryDeleteAluno);
-
+            // verifica se a quantidade de linhas modificadas é diferente de 0
             if (respostaBD.rowCount != 0) {
                 console.log(`Aluno removido com sucesso! ID do aluno: ${idAluno}`);
-
+                // true significa que a remoção foi feita
                 return true;
             }
-             return false;
-
-
+            // false significa que a remoção NÃO foi feita.
+            return false;
+            // tratando o erro
         } catch (error) {
-
+            // imprime outra mensagem junto com o erro
             console.log('Erro ao remover o aluno. Verifique os logs para mais detalhes.');
+            // imprime o erro no console
             console.log(error);
+            // retorno um valor falso
             return false;
         }
     }

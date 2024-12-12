@@ -22,7 +22,6 @@ export class Emprestimo {
     /* Status do Empréstimo */
     private statusEmprestimo: string;
 
-
     /**
         * Construtor da classe PedidoVenda
         * 
@@ -48,8 +47,6 @@ export class Emprestimo {
         this.statusEmprestimo = statusEmprestimo;
     }
 
-
-
     /* Métodos get e set */
     /**
      * Recupera o identificador do Emprestimo
@@ -58,7 +55,6 @@ export class Emprestimo {
     public getIdEmprestimo(): number {
         return this.idEmprestimo;
     }
-
     /**
      * Atribui um valor ao identificador do Emprestimo
      * @param idEmprestimo identificador do Emprestimo
@@ -66,9 +62,6 @@ export class Emprestimo {
     public setIdEmprestimo(idEmprestimo: number): void {
         this.idEmprestimo = idEmprestimo;
     }
-
-
-
     /*
      * Recupera o identificador do Aluno
      * @returns o identificador do Aluno
@@ -76,7 +69,6 @@ export class Emprestimo {
     public getIdAluno(): number {
         return this.idAluno;
     }
-
     /**
      * Atribui um valor ao identificador do Aluno
      * @param idAluno identificador do Aluno
@@ -84,8 +76,6 @@ export class Emprestimo {
     public setIdAluno(idAluno: number): void {
         this.idAluno = idAluno;
     }
-
-
     /**
      * Recupera o identificador do livro
      * @returns o identificador do livro
@@ -93,7 +83,6 @@ export class Emprestimo {
     public getIdLivro(): number {
         return this.idLivro;
     }
-
     /**
      * Atribui um valor ao identificador do livro
      * @param idLivro identificador do livro
@@ -101,8 +90,6 @@ export class Emprestimo {
     public setIdLivro(idLivro: number): void {
         this.idLivro = idLivro;
     }
-
-
     /**
      * Retorna a data de Empréstimo.
      * @returns A data de Empréstimo.
@@ -110,7 +97,6 @@ export class Emprestimo {
     public getDataemprestimo(): Date {
         return this.dataEmprestimo;
     }
-
     /**
     * Define a data de Empréstimo.
     * @param dataEmprestimo - Data de Empréstimo.
@@ -118,8 +104,6 @@ export class Emprestimo {
     public setDataEmprestimo(dataEmprestimo: Date): void {
         this.dataEmprestimo = dataEmprestimo;
     }
-
-
     /**
      * Retorna a data de Devolução
      * @returns A data de Devolução.
@@ -127,7 +111,6 @@ export class Emprestimo {
     public getDataDevolucao(): Date {
         return this.dataDevolucao;
     }
-
     /**
      Define a data de Devolução.
     * @param dataDevolucao - Data de Devolução.
@@ -135,8 +118,6 @@ export class Emprestimo {
     public setDataDevolucao(dataDevolucao: Date): void {
         this.dataDevolucao = dataDevolucao;
     }
-
-
     /**
     * Retorna o status do empréstimo.
     * @returns {string} O status do empréstimo.
@@ -144,7 +125,6 @@ export class Emprestimo {
     public getStatusEmprestimo(): string {
         return this.statusEmprestimo;
     }
-
     /**
     * Define o starus do empréstimo.
     * @param statusEmprestimo - Status do Empréstimo a ser definido.
@@ -152,7 +132,6 @@ export class Emprestimo {
     public setStatusEmprestimo(statusEmprestimo: string): void {
         this.statusEmprestimo = statusEmprestimo;
     }
-
 
     /**
      * Busca e retorna uma lista de emprestimos do banco de dados.
@@ -164,14 +143,19 @@ export class Emprestimo {
      * - Caso ocorra uma falha na consulta ao banco, a função captura o erro, exibe uma mensagem no console e retorna `null`.
      */
     static async listagemEmprestimos(): Promise<Array<Emprestimo> | null> {
+        // objeto para armazenar a lista de empréstimos
         const listaDeEmprestimos: Array<Emprestimo> = [];
 
         try {
+            // query de consulta ao banco de dados
             const querySelectEmprestimos = `SELECT * FROM emprestimo;`;
+            // fazendo a consulta e guardando a resposta
             const respostaBD = await database.query(querySelectEmprestimos);
 
+            // usando a resposta para instanciar um objeto do tipo emprestimo
             respostaBD.rows.forEach((linha: any) => {
-                const novoEmprestimo= new Emprestimo(
+                // instancia (cria) objeto emprestimo
+                const novoEmprestimo = new Emprestimo(
                     linha.idAluno,
                     linha.id_livro,
                     linha.data_emprestimo,
@@ -179,11 +163,14 @@ export class Emprestimo {
                     linha.status_emprestimo
                 );
 
+                // atribui o ID emprestimo
                 novoEmprestimo.setIdEmprestimo(linha.id_emprestimo);
 
+                // adiciona o objeto na lista
                 listaDeEmprestimos.push(novoEmprestimo);
             });
 
+            // retorna a lista de emprestimos
             return listaDeEmprestimos;
         } catch (error) {
             console.log('Erro ao buscar lista de empréstimos');

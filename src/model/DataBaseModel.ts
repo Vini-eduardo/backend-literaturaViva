@@ -7,22 +7,18 @@ dotenv.config();
  * Classe que representa o modelo de banco de dados.
  */
 export class DatabaseModel {
-    
     /**
      * Configuração para conexão com o banco de dados
      */
     private _config: object;
-
     /**
      * Pool de conexões com o banco de dados
      */
     private _pool: pg.Pool;
-
     /**
      * Cliente de conexão com o banco de dados
      */
     private _client: pg.Client;
-
     /**
      * Construtor da classe DatabaseModel.
      */

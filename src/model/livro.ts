@@ -8,27 +8,27 @@ const database = new DatabaseModel().pool;
  */
 export class Livro {
 
-
+    /* Atributos */
+    /* Identificador do livro */
     private idLivro: number = 0;
-
+    /* Titulo do livro */
     private titulo: string;
- 
+    /* autor do livro */
     private autor: string;
-
+    /* editora */
     private editora: string;
-
+    /* ano de publicação */
     private anoPublicacao: string;
- 
+    /* isbn */
     private isbn: number;
- 
+    /* quantidade total */
     private quantTotal: number;
-
+    /* quantidade disponível */
     private quantDisponivel: number;
-
+    /* valor de aquisição */
     private valorAquisicao: number;
- 
+    /* status do livro emprestado */
     private statusLivroEmprestado: string;
-
 
     /**
      * Construtor da classe Livro
@@ -74,7 +74,6 @@ export class Livro {
     public getIdLivro(): number {
         return this.idLivro;
     }
-
     /**
      * Atribui um valor ao identificador do livro
      * @param idLivro novo identificador do livro
@@ -82,7 +81,6 @@ export class Livro {
     public setIdLivro(idLivro: number): void {
         this.idLivro = idLivro;
     }
-
     /**
      * Retorna o titulo do livro.
      *
@@ -91,7 +89,6 @@ export class Livro {
     public getTitulo(): string {
         return this.titulo;
     }
-
     /**
      * Define o nome do livro.
      * 
@@ -100,7 +97,6 @@ export class Livro {
     public setTitulo(titulo: string): void {
         this.titulo = titulo;
     }
-
     /**
      * Retorna o Autor do livro.
      *
@@ -109,7 +105,6 @@ export class Livro {
     public getAutor(): string {
         return this.autor;
     }
-
     /**
      * Define o Autor do livro.
      * 
@@ -118,7 +113,6 @@ export class Livro {
     public setAutor(autor: string): void {
         this.autor = autor;
     }
-
     /**
      * Retorna a editora do livro.
      *
@@ -127,7 +121,6 @@ export class Livro {
     public getEditora(): string {
         return this.editora;
     }
-
     /**
      * Define a editora do livro.
      * 
@@ -136,7 +129,6 @@ export class Livro {
     public setEditora(editora: string): void {
         this.editora = editora;
     }
-
     /**
      * Retorna o ano de publicação do livro.
      *
@@ -145,7 +137,6 @@ export class Livro {
     public getAnoPublicacao(): string {
         return this.anoPublicacao;
     }
-
     /**
      * Define o ano de publicação do livro.
      * 
@@ -154,7 +145,6 @@ export class Livro {
     public setAnopublicacao(anoPublicacao: string): void {
         this.anoPublicacao = anoPublicacao;
     }
-
     /**
        * Retorna o isbn do livro.
        *
@@ -163,7 +153,6 @@ export class Livro {
     public getIsbn(): number {
         return this.isbn;
     }
-
     /**
      * Define o isbn do livro.
      * 
@@ -172,7 +161,6 @@ export class Livro {
     public setIsbn(isbn: number): void {
         this.isbn = isbn;
     }
-
     /**
          * Retorna a quantidade total do livro.
          *
@@ -181,7 +169,6 @@ export class Livro {
     public getQuantTotal(): number {
         return this.quantTotal;
     }
-
     /**
      * Define a quantidade total do livro.
      * 
@@ -190,7 +177,6 @@ export class Livro {
     public setQuantTotal(quantTotal: number): void {
         this.quantTotal = quantTotal;
     }
-
     /**
          * Retorna a quantidade disponível do livro.
          *
@@ -199,7 +185,6 @@ export class Livro {
     public getQuantDisponivel(): number {
         return this.quantDisponivel;
     }
-
     /**
      * Define a quantidade disponível do livro.
      * 
@@ -208,7 +193,6 @@ export class Livro {
     public setQuantDisponivel(quantDisponivel: number): void {
         this.quantDisponivel = quantDisponivel;
     }
-
     /**
          * Retorna o Valor de Aquisição do livro.
          *
@@ -217,7 +201,6 @@ export class Livro {
     public getValorAquisicao(): number {
         return this.valorAquisicao;
     }
-
     /**
      * Define o valor de aquisição do livro.
      * 
@@ -226,7 +209,6 @@ export class Livro {
     public setValorAquisicao(valorAquisicao: number): void {
         this.valorAquisicao = valorAquisicao;
     }
-
     /**
          * Retorna o status do livro emprestado.
          *
@@ -235,7 +217,6 @@ export class Livro {
     public getStatusLivroEmprestado(): string {
         return this.statusLivroEmprestado;
     }
-
     /**
      * Define o status do livro emprestado.
      * 
@@ -244,11 +225,6 @@ export class Livro {
     public setStatusLivroEmprestado(statusLivroEmprestado: string): void {
         this.statusLivroEmprestado = statusLivroEmprestado;
     }
-
-
-
-    
-    
     /**
      * Busca e retorna uma lista de livros do banco de dados.
      * @returns Um array de objetos do tipo `Livro` em caso de sucesso ou `null` se ocorrer um erro durante a consulta.
@@ -261,7 +237,6 @@ export class Livro {
     static async listagemLivro(): Promise<Array<Livro> | null> {
         // objeto para armazenar a lista de livros
         const listaDeLivros: Array<Livro> = [];
-
         try {
             // query de consulta ao banco de dados
             const querySelectLivro = `SELECT * FROM livro;`;
@@ -331,7 +306,7 @@ export class Livro {
                                         '${livro.getStatusLivroEmprestado()}')
                                         RETURNING id_livro;`;
 
-                    console.log(queryInsertLivro);
+            console.log(queryInsertLivro);
 
             // executa a query no banco e armazena a resposta
             const respostaBD = await database.query(queryInsertLivro);
